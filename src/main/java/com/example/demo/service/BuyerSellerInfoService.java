@@ -18,4 +18,8 @@ public class BuyerSellerInfoService {
     public List<BuyerSellerInfo> findAll(){
         return buyerSellerInfoMapper.findAll();
     }
+
+    public BuyerSellerInfo finUserByTelephone(String telephone){
+        return buyerSellerInfoMapper.finUserByTelephone(telephone);
+    }
 }

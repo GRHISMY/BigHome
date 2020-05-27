@@ -10,7 +10,6 @@ import com.example.demo.util.ConstantKit;
 import com.example.demo.util.Md5TokenGenerator;
 import com.example.demo.util.UpLoadImg;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
@@ -18,8 +17,8 @@ import redis.clients.jedis.Jedis;
 import java.util.Date;
 
 @RestController
-public class testController {
-
+@RequestMapping("user")
+public class userController {
     @Autowired
     BuyerSellerInfoService buyerSellerInfoService;
 
@@ -68,17 +67,17 @@ public class testController {
     @RequestMapping(value ="/fileUp", method = RequestMethod.POST)
     @ResponseBody
     public void fileUploadOne(
-                              @RequestParam("bSName") String bSName,
-                              @RequestParam("nickName")String nickName,
-                              @RequestParam("sex")Integer    sex,
-                              @RequestParam("file") MultipartFile file,
-                              @RequestParam("telephone")  String   telephone,
-                              @RequestParam("pwd")  String   pwd,
-                              @RequestParam("home")  String   home,
-                              @RequestParam("home_detail")  String   home_detail,
-                              @RequestParam("status")  Integer   status,
-                              @RequestParam("bSStatus")  Integer   bSStatus,
-                              @RequestParam("email")  String   email) {
+            @RequestParam("bSName") String bSName,
+            @RequestParam("nickName")String nickName,
+            @RequestParam("sex")Integer    sex,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("telephone")  String   telephone,
+            @RequestParam("pwd")  String   pwd,
+            @RequestParam("home")  String   home,
+            @RequestParam("home_detail")  String   home_detail,
+            @RequestParam("status")  Integer   status,
+            @RequestParam("bSStatus")  Integer   bSStatus,
+            @RequestParam("email")  String   email) {
         UpLoadImg upLoadImg = new UpLoadImg();
         String fileName = upLoadImg.uploadImg(file);
         BuyerSellerInfo buyerSellerInfo = new BuyerSellerInfo();
@@ -124,6 +123,4 @@ public class testController {
         return buyerSellerVO;
 
     }
-
-
 }

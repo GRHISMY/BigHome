@@ -16,4 +16,7 @@ public interface BuyerSellerInfoMapper {
 
     @Select("SELECT * FROM buyer_seller_info")
     List<BuyerSellerInfo> findAll();
+
+    @Select("SELECT * FROM buyer_seller_info WHERE telephone = #{telephone}")
+    BuyerSellerInfo finUserByTelephone(String telephone);
 }
