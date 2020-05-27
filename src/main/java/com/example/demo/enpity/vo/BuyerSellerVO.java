@@ -1,9 +1,8 @@
-package com.example.demo.enpity;
+package com.example.demo.enpity.vo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class BuyerSellerInfo implements Serializable {
+public class BuyerSellerVO {
     private Integer bSId;
     private String bSName;
     private String nickName;
@@ -13,20 +12,18 @@ public class BuyerSellerInfo implements Serializable {
     private String pwd;
     private String home;
     private String home_detail;
-//    1表示买家，0表示卖家
+    //    1表示买家，0表示卖家
     private  Integer status;
-//    1表示存在，0表示销户，一般来说，不能真正删除数据。删除之后，不管是从管理还是法律，都是不方便的。
+    //    1表示存在，0表示销户，一般来说，不能真正删除数据。删除之后，不管是从管理还是法律，都是不方便的。
     private Integer bSStatus;
     private String email;
     private Date lastLoginTime;
     private Date registerTime;
-
-    public BuyerSellerInfo() {
-    }
+    private String token;
 
     @Override
     public String toString() {
-        return "BuyerSellerInfo{" +
+        return "BuyerSellerVO{" +
                 "bSId=" + bSId +
                 ", bSName='" + bSName + '\'' +
                 ", nickName='" + nickName + '\'' +
@@ -41,7 +38,11 @@ public class BuyerSellerInfo implements Serializable {
                 ", email='" + email + '\'' +
                 ", lastLoginTime=" + lastLoginTime +
                 ", registerTime=" + registerTime +
+                ", token='" + token + '\'' +
                 '}';
+    }
+
+    public BuyerSellerVO() {
     }
 
     public Integer getbSId() {
@@ -154,5 +155,13 @@ public class BuyerSellerInfo implements Serializable {
 
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.controller.annotation.AuthToken;
 import com.example.demo.domain.JsonData;
 import com.example.demo.enpity.BuyerSellerInfo;
+import com.example.demo.enpity.vo.BuyerSellerVO;
 import com.example.demo.service.BuyerSellerInfoService;
 import com.example.demo.util.ConstantKit;
 import com.example.demo.util.Md5TokenGenerator;
@@ -84,6 +85,28 @@ public class testController {
         System.err.println(resultStatus);
 
 //        System.err.println(fileName);
+    }
+
+
+    public BuyerSellerVO BuyerSellerInfo2BuyerSellerVo(BuyerSellerInfo buyerSellerInfo,String token){
+        BuyerSellerVO buyerSellerVO = new BuyerSellerVO();
+        buyerSellerVO.setbSId(buyerSellerInfo.getbSId());
+        buyerSellerVO.setbSName(buyerSellerInfo.getbSName());
+        buyerSellerVO.setNickName(buyerSellerInfo.getNickName());
+        buyerSellerVO.setSex(buyerSellerInfo.getSex());
+        buyerSellerVO.setIcon(buyerSellerInfo.getIcon());
+        buyerSellerVO.setTelephone(buyerSellerInfo.getTelephone());
+        buyerSellerVO.setHome(buyerSellerInfo.getHome());
+        buyerSellerVO.setHome_detail(buyerSellerInfo.getHome_detail());
+        buyerSellerVO.setStatus(buyerSellerInfo.getStatus());
+        buyerSellerVO.setbSStatus(buyerSellerInfo.getbSStatus());
+        buyerSellerVO.setEmail(buyerSellerInfo.getEmail());
+        buyerSellerVO.setLastLoginTime(buyerSellerInfo.getLastLoginTime());
+        buyerSellerVO.setRegisterTime(buyerSellerInfo.getRegisterTime());
+        buyerSellerVO.setToken(token);
+
+        return buyerSellerVO;
+
     }
 
 
