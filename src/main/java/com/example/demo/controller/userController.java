@@ -32,7 +32,7 @@ public class userController {
         Assert.notBlank(username);
         Assert.notBlank(password);
         BuyerSellerInfo buyerSellerInfo = buyerSellerInfoService.finUserByTelephone(username);
-        System.err.println(buyerSellerInfo);
+//        System.err.println(buyerSellerInfo);
         if (buyerSellerInfo.getPwd().equals(password)){
             Jedis jedis = new Jedis("127.0.0.1", 6379);
 //        jedis.auth("26564356");
