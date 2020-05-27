@@ -5,7 +5,9 @@ import com.example.demo.controller.annotation.AuthToken;
 import com.example.demo.domain.JsonData;
 import com.example.demo.enpity.BuyerSellerInfo;
 import com.example.demo.enpity.vo.BuyerSellerVO;
+import com.example.demo.mapper.StoreInfoMapper;
 import com.example.demo.service.BuyerSellerInfoService;
+import com.example.demo.service.SGoodsInfoService;
 import com.example.demo.util.ConstantKit;
 import com.example.demo.util.Md5TokenGenerator;
 import com.example.demo.util.UpLoadImg;
@@ -25,6 +27,22 @@ public class testController {
 
     @Autowired
     private Md5TokenGenerator tokenGenerator;
+
+    @Autowired
+    StoreInfoMapper storeInfoMapper;
+
+    @Autowired
+    SGoodsInfoService sGoodsInfoService;
+
+    @RequestMapping("getGoodsList")
+    public JsonData getGoodsList(){
+        return JsonData.buildSuccess(sGoodsInfoService.getGoodsList());
+    }
+
+    @RequestMapping("getstoreByid")
+    public JsonData getstoreByid(Integer store_id){
+        return JsonData.buildSuccess(storeInfoMapper.getAStoreInfo(store_id));
+    }
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public JsonData login(@RequestParam(value = "username") String username,
