@@ -1,11 +1,21 @@
 package com.example.demo.controller;
 
 import cn.hutool.core.lang.Assert;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.controller.annotation.AuthToken;
 import com.example.demo.domain.JsonData;
 import com.example.demo.enpity.BuyerSellerInfo;
+import com.example.demo.enpity.GoodsInfo;
+import com.example.demo.enpity.GoodsItem;
+import com.example.demo.enpity.StoreItem;
 import com.example.demo.enpity.vo.BuyerSellerVO;
+import com.example.demo.mapper.GoodsInfoMapper;
+import com.example.demo.mapper.GoodsPhotoPathInfoMapper;
+import com.example.demo.mapper.GoodsPropertyInfoMapper;
 import com.example.demo.mapper.StoreInfoMapper;
+import com.example.demo.service.BuyerCartService;
 import com.example.demo.service.BuyerSellerInfoService;
 import com.example.demo.service.SGoodsInfoService;
 import com.example.demo.util.ConstantKit;
@@ -17,7 +27,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class testController {
@@ -33,6 +45,91 @@ public class testController {
 
     @Autowired
     SGoodsInfoService sGoodsInfoService;
+
+    @Autowired
+    GoodsPropertyInfoMapper goodsPropertyInfoMapper;
+
+    @Autowired
+    GoodsPhotoPathInfoMapper goodsPhotoPathInfoMapper;
+
+    @Autowired
+    GoodsInfoMapper goodsInfoMapper;
+
+    @Autowired
+    BuyerCartService buyerCartService;
+
+    @RequestMapping("deleteCar")
+    public JsonData deleteCar(@RequestParam("goods_id") Integer goods_id,
+                              @RequestParam("store_id")Integer store_id
+                              ){
+        buyerCartService.deleteStore_Item(goods_id,store_id);
+        return JsonData.buildSuccess();
+    }
+
+    @RequestMapping("updatacar")
+    public JsonData updatacar(@RequestParam("goods_id") Integer goods_id,
+                              @RequestParam("store_id")Integer store_id,
+                              @RequestParam("goods_sum") Integer goods_sum,
+                              @RequestParam("goods_money") float goods_money){
+        buyerCartService.updateStore_Item(goods_id,store_id,goods_sum,goods_money);
+        return JsonData.buildSuccess();
+    }
+
+    @RequestMapping("addcar")
+    public JsonData addcar(@RequestParam("goods_id") Integer goods_id,
+                           @RequestParam("store_id")Integer store_id,
+                           @RequestParam("goods_sum")Integer goods_sum,
+                           @RequestParam("goods_money") float goods_money){
+        buyerCartService.addStore_Item(goods_id,store_id,goods_sum,goods_money);
+        return JsonData.buildSuccess();
+
+    }
+    @RequestMapping("getCar")
+    public JsonData getCar(){
+        return JsonData.buildSuccess(buyerCartService.buyerCart());
+    }
+
+    @RequestMapping("testRedis")
+    public JsonData testRedis(){
+        List<StoreItem> store_itemList =new ArrayList<>();
+        List<GoodsItem> goodsItemList = new ArrayList<>();
+        GoodsItem goodsItem = new GoodsItem();
+        GoodsInfo goodsInfo = new GoodsInfo();
+        goodsInfo.setDictionary_code("111");
+        goodsInfo.setGoods_describe("BBBB");
+
+        goodsItem.setAccount(1);
+        goodsItem.setGoods_money(1);
+        goodsItem.setGoodsInfo(goodsInfo);
+
+        goodsItemList.add(goodsItem);
+
+        StoreItem storeItem = new StoreItem();
+        storeItem.setStore_id(1);
+        storeItem.setLink_man_id(1);
+        storeItem.setStore_name("A");
+
+        storeItem.setGoods_itemList(goodsItemList);
+        store_itemList.add(storeItem);
+
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+//        jedis.auth("26564356");
+        jedis.set("testArrayList", String.valueOf(JSONArray.parseArray(JSON.toJSONString(store_itemList))));
+
+        ArrayList<StoreItem> result = new ArrayList<>();
+        result = (ArrayList<StoreItem>) JSONObject.parseArray(jedis.get("AAAAAA"),StoreItem.class);
+        System.err.println(result);
+
+        jedis.close();
+
+        return JsonData.buildSuccess();
+    }
+
+    @RequestMapping("getAGoods_Info")
+    public JsonData getAGoods_Info (Integer goods_id){
+        GoodsInfo aGoods_info = sGoodsInfoService.getAGoods_Info(goods_id);
+        return JsonData.buildSuccess(aGoods_info);
+    }
 
     @RequestMapping("getGoodsList")
     public JsonData getGoodsList(){

@@ -52,6 +52,9 @@ public class SGoodsInfoServiceImpl implements SGoodsInfoService {
 
     @Override
     public GoodsInfo getAGoods_Info(int goods_id) {
-        return goods_infoMapper.getAGoods_Info(goods_id);
+        GoodsInfo aGoods_info = goods_infoMapper.getAGoods_Info(goods_id);
+        aGoods_info.setGoods_property_infoList(goods_property_infoMapper.getGoods_Property_List(goods_id));
+        aGoods_info.setGoods_photo_path_infoList(goods_photo_path_infoMapper.getGoods_Photo_Path_List(goods_id));
+        return aGoods_info;
     }
 }
