@@ -7,6 +7,7 @@ import com.example.demo.enpity.GoodsPropertyInfo;
 import java.util.List;
 
 public interface SGoodsInfoService {
+
     List<GoodsInfo> getGoodsList();
 
     int insertGoods_Info(GoodsInfo goods_info,

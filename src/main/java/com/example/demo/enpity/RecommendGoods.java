@@ -1,19 +1,17 @@
 package com.example.demo.enpity;
 
 import java.io.Serializable;
+import java.util.*;
 
 public class RecommendGoods implements Serializable {
     private Integer userId;
-    private Integer goodsId;
-    private Integer footPrintfNumber;
-
+    private Map<Integer,Integer> goodsIdAndFootprintfNumber = new HashMap<Integer,Integer>();
 
     @Override
     public String toString() {
         return "RecommendGoods{" +
                 "userId=" + userId +
-                ", goodsId=" + goodsId +
-                ", footPrintfNumber=" + footPrintfNumber +
+                ", goodsIdAndFootprintfNumber=" + goodsIdAndFootprintfNumber +
                 '}';
     }
 
@@ -28,19 +26,11 @@ public class RecommendGoods implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public Map<Integer, Integer> getGoodsIdAndFootprintfNumber() {
+        return goodsIdAndFootprintfNumber;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    public Integer getFootPrintfNumber() {
-        return footPrintfNumber;
-    }
-
-    public void setFootPrintfNumber(Integer footPrintfNumber) {
-        this.footPrintfNumber = footPrintfNumber;
+    public void setGoodsIdAndFootprintfNumber(Map<Integer, Integer> goodsIdAndFootprintfNumber) {
+        this.goodsIdAndFootprintfNumber = goodsIdAndFootprintfNumber;
     }
 }

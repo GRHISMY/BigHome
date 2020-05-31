@@ -6,5 +6,6 @@ import java.util.ArrayList;
 
 public interface RecommendServer {
     void addFootPrint(Integer userId,Integer goodsId);
-    Integer recommendGoodsId(ArrayList<RecommendGoods> userList);
+    Integer recommendGoodsId(Integer userId);
+    void printredis();
 }

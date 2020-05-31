@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.controller.annotation.AuthToken;
 import com.example.demo.domain.JsonData;
-import com.example.demo.enpity.BuyerSellerInfo;
-import com.example.demo.enpity.GoodsInfo;
-import com.example.demo.enpity.GoodsItem;
-import com.example.demo.enpity.StoreItem;
+import com.example.demo.enpity.*;
 import com.example.demo.enpity.vo.BuyerSellerVO;
 import com.example.demo.mapper.GoodsInfoMapper;
 import com.example.demo.mapper.GoodsPhotoPathInfoMapper;
@@ -17,6 +14,7 @@ import com.example.demo.mapper.GoodsPropertyInfoMapper;
 import com.example.demo.mapper.StoreInfoMapper;
 import com.example.demo.service.BuyerCartService;
 import com.example.demo.service.BuyerSellerInfoService;
+import com.example.demo.service.RecommendServer;
 import com.example.demo.service.SGoodsInfoService;
 import com.example.demo.util.ConstantKit;
 import com.example.demo.util.Md5TokenGenerator;
@@ -57,6 +55,32 @@ public class testController {
 
     @Autowired
     BuyerCartService buyerCartService;
+    @Autowired
+    RecommendServer recommendServer;
+
+    @RequestMapping("recomm")
+    public JsonData recom(){
+        Integer integer = recommendServer.recommendGoodsId(1);
+        GoodsInfo aGoods_info = goodsInfoMapper.getAGoods_Info(integer);
+        return JsonData.buildSuccess(aGoods_info);
+    }
+
+    @RequestMapping("showRedis")
+    public void show(){
+
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        ArrayList<RecommendGoods> recommendGoodsArrayList = (ArrayList<RecommendGoods>) JSONObject.parseArray(jedis.get("recommendGoodsArrayList"),RecommendGoods.class);
+        jedis.close();
+        recommendServer.recommendGoodsId(1);
+    }
+
+    @RequestMapping("addS")
+    public JsonData add(@RequestParam("userId") Integer userId,
+                        @RequestParam("goodsId")Integer goodsId){
+        recommendServer.addFootPrint(userId,goodsId);
+        recommendServer.printredis();
+        return JsonData.buildSuccess();
+    }
 
     @RequestMapping("deleteCar")
     public JsonData deleteCar(@RequestParam("goods_id") Integer goods_id,
