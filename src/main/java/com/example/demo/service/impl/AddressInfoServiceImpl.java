@@ -45,12 +45,45 @@ public class AddressInfoServiceImpl implements AddressInfoService {
 
     @Override
     @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    public Integer insertDefaultAddress(AddressInfo addressInfo) {
+        Integer first = addressInfoMapper.editDefaultStatusFirst(addressInfo.getB_s_id());
+        Integer send = addressInfoMapper.insertAddress(addressInfo);
+        if(first >= 1 && send >= 1){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    @Override
+    public AddressInfo findOne(Integer address_id) {
+        return addressInfoMapper.findOne(address_id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     public Integer deleteAddress(Integer address_id) {
         return addressInfoMapper.deleteAddress(address_id);
     }
 
+//    @Override
+//    public Integer updataAddressIonfo(AddressInfo addressInfo) {
+//        return addressInfoMapper.updataAddressIonfo(addressInfo);
+//    }
+
     @Override
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     public Integer updataAddressIonfo(AddressInfo addressInfo) {
-        return addressInfoMapper.updataAddressIonfo(addressInfo);
+        if (addressInfo.getDefault_status()== 0){
+            Integer first = addressInfoMapper.editDefaultStatusFirst(addressInfo.getB_s_id());
+            return addressInfoMapper.updataAddressIonfo(addressInfo);
+        }else {
+            return addressInfoMapper.updataAddressIonfo(addressInfo);
+        }
+    }
+
+    @Override
+    public Integer findDefaultStatus(Integer b_s_id) {
+        return addressInfoMapper.findDefaultStatus(b_s_id);
     }
 }

@@ -27,4 +27,10 @@ public interface AddressInfoMapper {
 
     @UpdateProvider(type = updateProvider.class,method = "updteAddressInfo")
     Integer updataAddressIonfo(AddressInfo addressInfo);
+
+    @Select("SELECT address_id FROM address_info WHERE b_s_id = #{b_s_id} AND default_status = 0")
+    Integer findDefaultStatus(Integer b_s_id);
+
+    @Select("SELECT * FROM  address_info WHERE address_id = #{address_id}")
+    AddressInfo findOne(Integer address_id);
 }

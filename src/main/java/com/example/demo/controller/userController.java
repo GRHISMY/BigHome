@@ -28,16 +28,19 @@ public class userController {
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public JsonData login(@RequestParam(value = "username") String username,
                           @RequestParam(value = "password") String password){
-
+//        System.err.println(password+" 1");
         Assert.notBlank(username);
         Assert.notBlank(password);
         BuyerSellerInfo buyerSellerInfo = buyerSellerInfoService.finUserByTelephone(username);
 //        System.err.println(buyerSellerInfo);
+        if (buyerSellerInfo == null){
+            return JsonData.buildError("账号错误");
+        }
         if (buyerSellerInfo.getPwd().equals(password)){
             Jedis jedis = new Jedis("127.0.0.1", 6379);
 //        jedis.auth("26564356");
             String token = tokenGenerator.generate(username, password);
-            jedis.set(username, password);
+//            jedis.set(username, password);
             jedis.expire(username, ConstantKit.TOKEN_EXPIRE_TIME);
             jedis.set(token, username);
             jedis.expire(token, ConstantKit.TOKEN_EXPIRE_TIME);

@@ -14,4 +14,8 @@ public interface AddressInfoService {
 
     Integer updataAddressIonfo(AddressInfo addressInfo);
 
+    Integer findDefaultStatus(Integer b_s_id);
+    Integer insertDefaultAddress(AddressInfo addressInfo);
+
+    AddressInfo findOne(Integer address_id);
 }
