@@ -1,6 +1,7 @@
 package com.example.demo.enpity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsInfo implements Serializable {
@@ -15,8 +16,8 @@ public class GoodsInfo implements Serializable {
     private Integer goods_status;
     private Integer store_id;
     private String dictionary_code;
-    private List<GoodsPropertyInfo> goods_property_infoList = null; //解决1对多
-    private List<GoodsPhotoPath_Info> goods_photo_path_infoList = null;//解决1对多
+    private List<GoodsPropertyInfo> goods_property_infoList = new ArrayList<GoodsPropertyInfo>(); //解决1对多
+    private List<GoodsPhotoPath_Info> goods_photo_path_infoList = new ArrayList<GoodsPhotoPath_Info>();//解决1对多
 
     @Override
     public String toString() {

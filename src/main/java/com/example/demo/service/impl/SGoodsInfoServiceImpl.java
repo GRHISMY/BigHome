@@ -25,7 +25,12 @@ public class SGoodsInfoServiceImpl implements SGoodsInfoService {
 
     @Override
     public List<GoodsInfo> getGoodsList() {
-        return goods_infoMapper.getGoodsList();
+        List<GoodsInfo> goodsList = goods_infoMapper.getGoodsList();
+        for (int i = 0; i < goodsList.size(); i++){
+            goodsList.get(i).setGoods_photo_path_infoList(goods_photo_path_infoMapper.getGoods_Photo_Path_List(goodsList.get(i).getGoods_id()));
+            goodsList.get(i).setGoods_property_infoList(goods_property_infoMapper.getGoods_Property_List(goodsList.get(i).getGoods_id()));
+        }
+        return goodsList;
     }
 
     @Override
