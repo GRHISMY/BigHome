@@ -10,8 +10,10 @@ public interface SOrderServer {
     List<OrderInfo> getOrder_InfoList(int b_s_id);
 
     //商品到订单
-    int goodsToOrder(OrderInfo order_info, OrderItemInfo order_item_info, LogisticsInfo logistics_info);
+    int goodsToOrder(OrderInfo order_info, LogisticsInfo logistics_info);
 
     //购物车到订单
-    int cartToOrder(List<OrderInfo> order_infoList, LogisticsInfo logistics_info);
+    int cartToOrder(OrderInfo order_info, LogisticsInfo logistics_info);
+
+    List<OrderItemInfo> getOrder_Item_InfoList(int order_id);
 }

@@ -74,7 +74,7 @@ public class BuyerCartServiceImpl implements BuyerCartService {
     @Override
     public List<StoreItem> buyerCart() {
         Jedis jedis = new Jedis("127.0.0.1", 6379);
-        ArrayList<StoreItem> result = new ArrayList<>();
+        ArrayList<StoreItem> result = new ArrayList<StoreItem>();
         result = (ArrayList<StoreItem>) JSONObject.parseArray(jedis.get("buyerCart"),StoreItem.class);
         jedis.close();
 
@@ -161,6 +161,7 @@ public class BuyerCartServiceImpl implements BuyerCartService {
 
         Jedis jedis = new Jedis("127.0.0.1", 6379);
         jedis.set("buyerCart", String.valueOf(JSONArray.parseArray(JSON.toJSONString(store_itemList))));
+
         jedis.close();
     }
 
@@ -175,8 +176,22 @@ public class BuyerCartServiceImpl implements BuyerCartService {
         this.store_itemList.get(store_item_index).getGoods_itemList().get(goods_item_index)
                 .setGoods_money(goods_money);
 
+//        System.err.println("goods_item_index "+goods_item_index);
+//        System.err.println("store_item_index "+store_item_index);
+
+//        System.err.println("goods_id "+goods_id);
+//        System.err.println("goods_sum "+goods_sum);
+//        System.err.println(store_itemList);
+
         Jedis jedis = new Jedis("127.0.0.1", 6379);
         jedis.set("buyerCart", String.valueOf(JSONArray.parseArray(JSON.toJSONString(store_itemList))));
+        jedis.close();
+    }
+
+    @Override
+    public void deleteStore(int store_id) {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        jedis.del("buyerCart");
         jedis.close();
     }
 }

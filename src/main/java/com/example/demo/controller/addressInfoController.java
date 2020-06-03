@@ -6,10 +6,7 @@ import com.example.demo.enpity.AddressInfo;
 import com.example.demo.enpity.vo.AddressInfoVO;
 import com.example.demo.service.AddressInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("address")
+@CrossOrigin
 public class addressInfoController {
 
     @Autowired

@@ -12,8 +12,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface OrderItemInfoMapper {
-    @Select("select o.*, g.goods_name from order_item_info o " +
-            "inner join goods_info g on o.goods_id = g.goods_id where order_id=#{order_id}")
+//    @Select("select o.*, g.goods_name from order_item_info o " +
+//            "inner join goods_info g on o.goods_id = g.goods_id where order_id=#{order_id}")
+    @Select("SELECT * FROM order_item_info WHERE order_id=#{order_id}")
     List<OrderItemInfo> getOrder_Item_InfoList(int order_id);
 
     @Insert("insert into order_item_info(order_item_id, order_id, order_item_time, goods_id, " +
@@ -24,4 +25,6 @@ public interface OrderItemInfoMapper {
 
     @Update("")
     int updateOrder_Item_Info(OrderItemInfo order_item_info);
+
+
 }

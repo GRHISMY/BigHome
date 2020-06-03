@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class testController {
 
     @Autowired
@@ -61,8 +62,10 @@ public class testController {
     @RequestMapping("recomm")
     public JsonData recom(){
         Integer integer = recommendServer.recommendGoodsId(1);
-        GoodsInfo aGoods_info = goodsInfoMapper.getAGoods_Info(integer);
-        return JsonData.buildSuccess(aGoods_info);
+        GoodsInfo aGoods_info = sGoodsInfoService.getAGoods_Info(integer);
+        List<GoodsInfo> list = new ArrayList<GoodsInfo>();
+        list.add(aGoods_info);
+        return JsonData.buildSuccess(list);
     }
 
     @RequestMapping("showRedis")

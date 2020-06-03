@@ -18,6 +18,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("user")
+@CrossOrigin
 public class userController {
     @Autowired
     BuyerSellerInfoService buyerSellerInfoService;

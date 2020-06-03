@@ -13,7 +13,8 @@ public class LogisticsInfo implements Serializable {
     private String address_1;
     private String address_detail;
     private int logistics_status;
-    private List<LogisticsItemInfo> logistics_item_infoList = new ArrayList<LogisticsItemInfo>();
+//    private List<LogisticsItemInfo> logistics_item_infoList = new ArrayList<LogisticsItemInfo>();
+
 
     @Override
     public String toString() {
@@ -26,7 +27,6 @@ public class LogisticsInfo implements Serializable {
                 ", address_1='" + address_1 + '\'' +
                 ", address_detail='" + address_detail + '\'' +
                 ", logistics_status=" + logistics_status +
-                ", logistics_item_infoList=" + logistics_item_infoList +
                 '}';
     }
 
@@ -97,11 +97,4 @@ public class LogisticsInfo implements Serializable {
         this.logistics_status = logistics_status;
     }
 
-    public List<LogisticsItemInfo> getLogistics_item_infoList() {
-        return logistics_item_infoList;
-    }
-
-    public void setLogistics_item_infoList(List<LogisticsItemInfo> logistics_item_infoList) {
-        this.logistics_item_infoList = logistics_item_infoList;
-    }
 }
