@@ -38,6 +38,7 @@ public class userController {
             return JsonData.buildError("账号错误");
         }
         if (buyerSellerInfo.getPwd().equals(password)){
+            System.err.println();
             Jedis jedis = new Jedis("127.0.0.1", 6379);
 //        jedis.auth("26564356");
             String token = tokenGenerator.generate(username, password);
