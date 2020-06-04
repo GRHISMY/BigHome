@@ -34,6 +34,7 @@ public class userController {
         Assert.notBlank(password);
         BuyerSellerInfo buyerSellerInfo = buyerSellerInfoService.finUserByTelephone(username);
 //        System.err.println(buyerSellerInfo);
+//        System.err.println();
         if (buyerSellerInfo == null){
             return JsonData.buildError("账号错误");
         }
